@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const { message } = req.body || {};
 
   // YAHAN APNI AQ WALI KEY DALEIN
-  const API_KEY = "const API_KEY = process.env.GEMINI_API_KEY";
+  const API_KEY = process.env.GEMINI_API_KEY";
 
   try {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
