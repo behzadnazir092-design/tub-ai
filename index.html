@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tub AI</title>
+<style>
+body{background:#0f0f0f;color:#fff;font-family:system-ui;margin:0;display:flex;flex-direction:column;height:100vh}
+header{padding:16px;text-align:center;border-bottom:1px solid #333;font-size:20px;font-weight:bold}
+#chat{flex:1;overflow:auto;padding:15px;display:flex;flex-direction:column;gap:10px}
+.msg{padding:10px 14px;border-radius:12px;max-width:85%}
+.user{background:#2563eb;align-self:flex-end}
+.ai{background:#1e1e1e;align-self:flex-start;border:1px solid #333}
+#bar{display:flex;padding:10px;gap:8px;border-top:1px solid #333}
+#q{flex:1;padding:12px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff}
+button{padding:12px 18px;border-radius:8px;border:none;background:#fff;font-weight:bold}
+</style>
+</head>
+<body>
+<header>Tub AI 🤖</header>
+<div id="chat"><div class="msg ai">Salam! Kya puchna hai?</div></div>
+<div id="bar"><input id="q" placeholder="Sawal likho..."><button onclick="send()">Send</button></div>
+<script>
+async function send(){
+let i=document.getElementById('q');let t=i.value.trim();if(!t)return;
+let c=document.getElementById('chat');c.innerHTML+=`<div class=msg user>${t}</div>`;i.value='';
+let r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:t})});
+let d=await r.json();c.innerHTML+=`<div class=msg ai>${d.reply}</div>`;c.scrollTop=c.scrollHeight;
+}
+</script>
+</body>
+</html>
